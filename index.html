@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Archivo de Ayllu — Mockup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f0b12;
+      --panel:#1a0306;
+      --accent:#ff2020;
+      --accent-2:#c30b0b;
+      --muted:#7a6b6f;
+      --glass: rgba(255,255,255,0.03);
+      --mono: 'Inconsolata', monospace;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family:var(--mono);
+      background:linear-gradient(180deg,var(--bg) 0%, #130a10 60%);
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:24px;
+      display:flex;
+      justify-content:center;
+    }
+.comments {
+  background: rgba(255, 0, 0, 0.03);
+  border-top: 1px solid rgba(255, 0, 0, 0.08);
+  padding-top: 8px;
+  margin-top: 10px;
+}
+
+.comments h4 {
+  font-size: 13px;
+  color: var(--accent);
+  margin: 0 0 6px 0;
+}
+
+.comment-list {
+  max-height: 120px;
+  overflow-y: auto;
+  margin-bottom: 8px;
+}
+
+.comment {
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 3px 0;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 5px 8px;
+  border-radius: 4px;
+}
+
+.comment.muted {
+  color: var(--muted);
+  background: transparent;
+}
+
+.comment-form {
+  display: flex;
+  gap: 6px;
+}
+
+.comment-input {
+  flex: 1;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 6px;
+}
+
+.comment-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.comment-form button {
+  background: var(--accent);
+  color: #12040a;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.comment-form button:hover {
+  background: var(--accent-2);
+}
+
+    /* container that mimics screenshot width */
+    .wrap{
+      width:100%;
+      max-width:420px;
+    }
+
+    header{
+      text-align:center;
+      margin-bottom:14px;
+    }
+    .site-title{
+      font-size:14px;
+      letter-spacing:2px;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+
+    /* glitch title */
+    .title-glitch{
+      font-size:34px;
+      position:relative;
+      display:inline-block;
+      line-height:1;
+      color:#fff;
+      transform:translateZ(0);
+    }
+    .title-glitch::before,
+    .title-glitch::after{
+      content:attr(data-text);
+      position:absolute;
+      left:0; top:0;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      clip:rect(0,9999px,0,0);
+    }
+    .title-glitch::before{ color:var(--accent); transform:translate(-2px,0); opacity:0.85; animation:glitch-anim 2.5s infinite linear; }
+    .title-glitch::after{ color:var(--accent-2); transform:translate(2px,0); opacity:0.8; animation:glitch-anim-2 3s infinite linear; }
+    @keyframes glitch-anim{ 0%{clip:rect(0,9999px,0,0)} 10%{clip:rect(10px,9999px,55px,0)} 20%{clip:rect(30px,9999px,80px,0)} 30%{clip:rect(0,9999px,20px,0)} 40%{clip:rect(60px,9999px,120px,0)} 100%{clip:rect(0,9999px,0,0)} }
+    @keyframes glitch-anim-2{ 0%{clip:rect(0,9999px,0,0)} 15%{clip:rect(5px,9999px,40px,0)} 25%{clip:rect(40px,9999px,90px,0)} 45%{clip:rect(0,9999px,10px,0)} 100%{clip:rect(0,9999px,0,0)} }
+
+    /* logo */
+    .logo{
+      width:72px;height:72px;margin:5px auto 30px; display:flex;align-items:center;justify-content:center;
+    
+    }
+    .badge{
+      width:44px;height:44px; display:block; filter:drop-shadow(0 0 8px rgba(195,10,10,0.12));
+    }
+.badge-img {
+  width: 80px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.4));
+}
+.post-img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  object-fit: cover;
+  filter: brightness(0.9) contrast(1.05);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.post-img:hover {
+  transform: scale(1.02);
+  filter: brightness(1) contrast(1.1);
+}
+
+h2 {
+    font-size: 18px;
+    color: #0f0b12;
+}
+    /* info box */
+    .info h2{
+      background-color: #ff2020;
+    }
+
+    /* controls */
+    .controls{display:flex;gap:8px;align-items:center;margin:12px 0 10px}
+    .orders{display:flex;gap:6px;flex:1}
+    .orders button{background:transparent;border:1px solid rgba(255,255,255,0.03);padding:6px 8px;border-radius:6px;color:var(--muted);font-size:12px}
+    .orders button.active{background:var(--panel);border-color:rgba(255,0,0,0.15);color:var(--accent)}
+    .search{flex-basis:110px}
+    .search input{width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:#fff;font-family:var(--mono)}
+
+    /* posts */
+    .posts{display:grid;grid-template-columns:1fr; gap:12px}
+    .post{
+      background:linear-gradient(180deg, rgba(255,0,0,0.04), rgba(0,0,0,0.12));
+      border:1px solid rgba(255,0,0,0.08);
+      padding:10px;border-radius:8px;position:relative;overflow:hidden;
+    }
+    .post .meta{font-size:12px;color:var(--muted);margin-bottom:6px}
+    .post .meta .likes{float:right;color:var(--accent);}
+    .post .title{font-size:15px;line-height:1.2;color:#fff;margin-bottom:6px}
+    .post .by{font-size:11px;color:var(--muted)}
+
+    /* small red tag like the screenshot */
+    .tag{display:inline-block;background:var(--accent);color:#12040a;padding:4px 8px;border-radius:4px;font-size:12px;margin-bottom:8px}
+
+    /* responsive tweaks */
+    @media(min-width:700px){
+      .wrap{max-width:520px}
+      .title-glitch{font-size:40px}
+    }
+
+    /* subtle scanlines to fit aesthetic */
+    .scanlines{pointer-events:none;position:fixed;left:0;top:0;width:100%;height:100%;mix-blend-mode:overlay;opacity:0.03;background-image:linear-gradient(transparent 50%, rgba(255,255,255,0.02) 51%);background-size:100% 4px}
+
+    footer{margin:18px 0 40px;font-size:12px;color:var(--muted);text-align:center}
+  
+    .post-media {
+  width: 100%;
+  height: 400px; /* 🔧 Ajustá a la medida que prefieras */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background: #0f0b12;
+  display: block;
+  filter: brightness(0.9) contrast(1.05);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.post-media:hover {
+  transform: scale(1.02);
+  filter: brightness(1) contrast(1.15);
+}
+
+/* Para que los videos mantengan el mismo estilo */
+.post video {
+  display: block;
+  background: #000;
+}
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      
+      <div class="logo">
+  <img src="Group 84.png" alt="Logo Ayllu" class="badge-img">
+</div>
+
+      <div class="info"> <h2>Archivo exclusivo para tópicos vinculados al Ayllu</h2><h2>Aquí se guarda lo que otros quieren olvidar.</h2>
+    </header>
+
+    <div class="controls">
+      <div class="orders">
+        <button class="active" data-order="tendencias">Tendencias</button>
+        <button data-order="actualidad">Actualidad</button>
+        <button data-order="mas-recientes">Más recientes</button>
+      </div>
+      <div class="search"><input id="search" placeholder="Ordenar postes..." aria-label="Buscar posts"></div>
+    </div>
+
+    <main class="posts" id="posts"></main>
+
+  </div>
+  <div class="scanlines"></div>
+
+  <script>
+    // sample data. Replace/extend for real content
+    const sample = [
+      {title: '¡DIEGO VOLVIO A APARECER!', likes:12364, by:'marcelo33' },
+      {title: 'Diego Ibarra dijo que tiene que ver con el INTI????', likes:12344, by:'ivan.el.mau123',type:'',media:'' , comments: ['Increíble noticia', 'No lo puedo creer']},
+      {title: 'No entiendo nada... ¿¿¿EL CONSENSO NO VA A HABLAR???', likes:12098, by:'jokerridey11',type:'',media:'', comments: []},
+      {title: '¿Esa cosa no mata a como un millón de personas en Jujuy?', likes:11234, by:'cadenatres',type:'video',media:'media/Video-Gubernamental-final.mp4', comments: []},
+      {title: 'Mi abuelo falleció en la gran explosión... no quiero terminar igual', likes:11434, by:'mariae333',type:'',media:'', comments: ['Increíble noticia', 'No lo puedo creer']},
+      {title: 'ANDAN DICIENDO QUE LA GENTE ESTA SOÑANDO CON PROMONICIONES', likes:3, by:'giovanix82',type:'image',media:'img/paletita.png', comments: []},
+      {title: 'gIOVAX deja de decir pavadas. no ves que realmente es algo que nos afecto a todos', likes:137, by:'ivanoff32',type:'',media:'', comments: []}
+    ];
+
+    const postsEl = document.getElementById('posts');
+
+    function render(list){
+  postsEl.innerHTML = '';
+  list.forEach((p, index) => {
+    const el = document.createElement('article');
+    el.className = 'post';
+
+    // HTML del post
+    el.innerHTML = `
+      <div class="meta">
+        <span class="likes">${p.likes.toLocaleString('es-AR')} likes</span>
+        <span class="by">publicado por ${p.by}</span>
+      </div>
+      <div class="title">${escapeHtml(p.title)}</div>
+      ${p.type === 'image' ? 
+  `<img src="${p.media}" alt="${escapeHtml(p.title)}" class="post-media">` : 
+  p.type === 'video' ? 
+  `<video src="${p.media}" class="post-media" controls preload="metadata"></video>` 
+  : ''
+}
+      
+      <div class="tag">${p.likes.toLocaleString('es-AR')}</div>
+
+      <!-- 💬 sección de comentarios -->
+      <div class="comments">
+        <h4>Comentarios</h4>
+        <div class="comment-list">
+          ${(p.comments || []).length > 0 
+          ? p.comments.map(c => `<p class="comment">${escapeHtml(c)}</p>`).join('')
+  : '<p class="comment muted">No hay comentarios aún.</p>'}
+        </div>
+        <form class="comment-form" data-index="${index}">
+          <input type="text" placeholder="Escribe un comentario..." class="comment-input" maxlength="120" required>
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    `;
+    postsEl.appendChild(el);
+  });
+
+  // Eventos de envío de comentario
+  document.querySelectorAll('.comment-form').forEach(form => {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const index = form.dataset.index;
+      const input = form.querySelector('.comment-input');
+      const text = input.value.trim();
+      if (text) {
+        sample[index].comments.push(text);
+        input.value = '';
+        render(list); // re-render para mostrar el nuevo comentario
+      }
+    });
+  });
+}
+
+
+    function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    // initial render
+    render(sample);
+
+    // order buttons
+    document.querySelectorAll('.orders button').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.orders button').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const order = btn.dataset.order;
+        if(order==='tendencias') render(sample.slice().sort((a,b)=>b.likes-a.likes));
+        else if(order==='mas-recientes') render(sample.slice().reverse());
+        else render(sample);
+      });
+    });
+
+    // search filter
+    document.getElementById('search').addEventListener('input',e=>{
+      const q = e.target.value.trim().toLowerCase();
+      if(!q) render(sample);
+      else render(sample.filter(p=>p.title.toLowerCase().includes(q) || p.by.toLowerCase().includes(q)));
+    });
+
+    // make layout responsive to container width (example effect)
+    window.addEventListener('resize',()=>{
+      // could enhance: switch to 2-column on wide screens by changing CSS class
+    });
+  </script>
+</body>
+</html>
