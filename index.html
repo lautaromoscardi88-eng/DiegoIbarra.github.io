@@ -264,108 +264,103 @@ h2 {
   <div class="scanlines"></div>
 
   <script>
-    // sample data. Replace/extend for real content
-    const sample = [
-      {title: '¡DIEGO VOLVIO A APARECER!', likes:12364, by:'marcelo33' },
-      {title: 'Diego Ibarra dijo que tiene que ver con el INTI????', likes:12344, by:'ivan.el.mau123',type:'',media:'' , comments: ['Increíble noticia', 'No lo puedo creer']},
-      {title: 'No entiendo nada... ¿¿¿EL CONSENSO NO VA A HABLAR???', likes:12098, by:'jokerridey11',type:'',media:'', comments: []},
-      {title: '¿Esa cosa no mata a como un millón de personas en Jujuy?', likes:11234, by:'cadenatres',type:'',media:'', comments: []},
-      {title: 'Mi abuelo falleció en la gran explosión... no quiero terminar igual', likes:11434, by:'mariae333',type:'',media:'', comments: ['Increíble noticia', 'No lo puedo creer']},
-      {title: 'ANDAN DICIENDO QUE LA GENTE ESTA SOÑANDO CON PROMONICIONES', likes:3, by:'giovanix82',type:'',media:'', comments: []},
-      {title: 'gIOVAX deja de decir pavadas. no ves que realmente es algo que nos afecto a todos', likes:137, by:'ivanoff32',type:'',media:'', comments: []}
-    ];
+  const sample = [
+    {title: '¡DIEGO VOLVIO A APARECER! https://x.com/Diego_Ibarra555?t=mUYKnQf4i-KVtSmjIVYLg&s=09', likes:12364, by:'marcelo33' },
+    {title: 'Diego Ibarra dijo que tiene que ver con el INTI???? ', likes:12344, by:'ivan.el.mau123',type:'',media:'' , comments: ['Increíble noticia', 'No lo puedo creer']},
+    {title: 'No entiendo nada... ¿¿¿EL CONSENSO NO VA A HABLAR???', likes:12098, by:'jokerridey11',type:'',media:'', comments: []},
+    {title: '¿Esa cosa no mata a como un millón de personas en Jujuy?', likes:11234, by:'cadenatres',type:'',media:'', comments: []},
+    {title: 'Mi abuelo falleció en la gran explosión... no quiero terminar igual', likes:11434, by:'mariae333',type:'',media:'', comments: ['Increíble noticia', 'No lo puedo creer']},
+    {title: 'ANDAN DICIENDO QUE LA GENTE ESTA SOÑANDO CON PROMONICIONES', likes:3, by:'giovanix82',type:'',media:'', comments: []},
+    {title: 'gIOVAX deja de decir pavadas. no ves que realmente es algo que nos afecto a todos', likes:137, by:'ivanoff32',type:'',media:'', comments: []}
+  ];
 
-    const postsEl = document.getElementById('posts');
+  const postsEl = document.getElementById('posts');
 
-    function render(list){
-  postsEl.innerHTML = '';
-  list.forEach((p, index) => {
-    const el = document.createElement('article');
-    el.className = 'post';
+  // convierte texto en HTML seguro con links activos
+  function parseLinks(text) {
+    const safeText = escapeHtml(text);
+    return safeText.replace(
+      /(https?:\/\/[^\s]+)/g,
+      '<a href="$1" target="_blank" rel="noopener noreferrer" style="color:#ff5050;text-decoration:underline;">$1</a>'
+    );
+  }
 
-    // HTML del post
-    el.innerHTML = `
-      <div class="meta">
-        <span class="likes">${p.likes.toLocaleString('es-AR')} likes</span>
-        <span class="by">publicado por ${p.by}</span>
-      </div>
-      <div class="title">${escapeHtml(p.title)}</div>
-      ${p.type === 'image' ? 
-  `<img src="${p.media}" alt="${escapeHtml(p.title)}" class="post-media">` : 
-  p.type === 'video' ? 
-  `<video src="${p.media}" class="post-media" controls preload="metadata"></video>` 
-  : ''
-}
-      
-      <div class="tag">${p.likes.toLocaleString('es-AR')}</div>
+  function render(list){
+    postsEl.innerHTML = '';
+    list.forEach((p, index) => {
+      const el = document.createElement('article');
+      el.className = 'post';
 
-      <!-- 💬 sección de comentarios -->
-      <div class="comments">
-        <h4>Comentarios</h4>
-        <div class="comment-list">
-          ${(p.comments || []).length > 0 
-          ? p.comments.map(c => `<p class="comment">${escapeHtml(c)}</p>`).join('')
-  : '<p class="comment muted">No hay comentarios aún.</p>'}
+      el.innerHTML = `
+        <div class="meta">
+          <span class="likes">${p.likes.toLocaleString('es-AR')} likes</span>
+          <span class="by">publicado por ${p.by}</span>
         </div>
-        <form class="comment-form" data-index="${index}">
-          <input type="text" placeholder="Escribe un comentario..." class="comment-input" maxlength="120" required>
-          <button type="submit">Enviar</button>
-        </form>
-      </div>
-    `;
-    postsEl.appendChild(el);
-  });
+        <div class="title">${parseLinks(p.title)}</div>
+        ${p.type === 'image' ? 
+          `<img src="${p.media}" alt="${escapeHtml(p.title)}" class="post-media">` : 
+          p.type === 'video' ? 
+          `<video src="${p.media}" class="post-media" controls preload="metadata"></video>` 
+          : ''
+        }
 
-  // Eventos de envío de comentario
-  document.querySelectorAll('.comment-form').forEach(form => {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const index = form.dataset.index;
-      const input = form.querySelector('.comment-input');
-      const text = input.value.trim();
-      if (text) {
-        sample[index].comments.push(text);
-        input.value = '';
-        render(list); // re-render para mostrar el nuevo comentario
-      }
+        <div class="tag">${p.likes.toLocaleString('es-AR')}</div>
+
+        <div class="comments">
+          <h4>Comentarios</h4>
+          <div class="comment-list">
+            ${(p.comments || []).length > 0 
+              ? p.comments.map(c => `<p class="comment">${parseLinks(c)}</p>`).join('')
+              : '<p class="comment muted">No hay comentarios aún.</p>'}
+          </div>
+          <form class="comment-form" data-index="${index}">
+            <input type="text" placeholder="Escribe un comentario..." class="comment-input" maxlength="120" required>
+            <button type="submit">Enviar</button>
+          </form>
+        </div>
+      `;
+      postsEl.appendChild(el);
     });
-  });
-}
 
-
-    function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-    // initial render
-    render(sample);
-
-    // order buttons
-    document.querySelectorAll('.orders button').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        document.querySelectorAll('.orders button').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        const order = btn.dataset.order;
-        if(order==='tendencias') render(sample.slice().sort((a,b)=>b.likes-a.likes));
-        else if(order==='mas-recientes') render(sample.slice().reverse());
-        else render(sample);
+    document.querySelectorAll('.comment-form').forEach(form => {
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const index = form.dataset.index;
+        const input = form.querySelector('.comment-input');
+        const text = input.value.trim();
+        if (text) {
+          sample[index].comments.push(text);
+          input.value = '';
+          render(list);
+        }
       });
     });
+  }
 
-    // search filter
-    document.getElementById('search').addEventListener('input',e=>{
-      const q = e.target.value.trim().toLowerCase();
-      if(!q) render(sample);
-      else render(sample.filter(p=>p.title.toLowerCase().includes(q) || p.by.toLowerCase().includes(q)));
-    });
+  function escapeHtml(s){ 
+    return s.replace(/&/g,'&amp;')
+            .replace(/</g,'&lt;')
+            .replace(/>/g,'&gt;');
+  }
 
-    // make layout responsive to container width (example effect)
-    window.addEventListener('resize',()=>{
-      // could enhance: switch to 2-column on wide screens by changing CSS class
+  render(sample);
+
+  document.querySelectorAll('.orders button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.orders button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const order = btn.dataset.order;
+      if(order==='tendencias') render(sample.slice().sort((a,b)=>b.likes-a.likes));
+      else if(order==='mas-recientes') render(sample.slice().reverse());
+      else render(sample);
     });
-  </script>
-  
+  });
+
+  document.getElementById('search').addEventListener('input',e=>{
+    const q = e.target.value.trim().toLowerCase();
+    if(!q) render(sample);
+    else render(sample.filter(p=>p.title.toLowerCase().includes(q) || p.by.toLowerCase().includes(q)));
+  });
+</script>
 </body>
 </html>
-
-
-
-
